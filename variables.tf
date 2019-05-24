@@ -1,17 +1,17 @@
 provider "aws" {
-  region = "eu-west-1"
+  region = "eu-central-1"
 }
 
 variable "instance_type" {
-  default = "c4.large"
+  default = "m5.large"
 }
 
 variable "region" {
-  default = "eu-west-1"
+  default = "eu-central-1"
 }
 
 variable "azs" {
-  default = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  default = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 }
 
 variable "environment" {
@@ -23,7 +23,7 @@ variable "role" {
 }
 
 variable "ami" {
-  default = "ami-a0ff1ed9"
+  default = "ami-1f62c270"
 }
 
 variable "vpc_cidr" {
@@ -31,19 +31,21 @@ variable "vpc_cidr" {
 }
 
 variable "dns" {
-  type = "map"
+  type = map(string)
 
   default = {
-    domain_name = "example.com"
+    domain_name = "cilium.internal"
   }
 }
 
-variable "root_key_pair_public_key" {}
+variable "root_key_pair_public_key" {
+}
 
 variable "cluster_size" {
-  default = 9
+  default = 3
 }
 
 variable "ntp_host" {
   default = "0.europe.pool.ntp.org"
 }
+

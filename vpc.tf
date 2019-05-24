@@ -1,48 +1,48 @@
 resource "aws_vpc" "default" {
-  cidr_block           = "${var.vpc_cidr}"
+  cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags {
+  tags = {
     Name = "etcd3-test"
   }
 }
 
 resource "aws_internet_gateway" "default" {
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
-  tags {
+  tags = {
     Name = "default"
   }
 }
 
 resource "aws_subnet" "default" {
-  count             = "${length(var.azs)}"
-  vpc_id            = "${aws_vpc.default.id}"
-  cidr_block        = "${cidrsubnet(var.vpc_cidr, 2, count.index)}"
-  availability_zone = "${element(var.azs, count.index)}"
+  count             = length(var.azs)
+  vpc_id            = aws_vpc.default.id
+  cidr_block        = cidrsubnet(var.vpc_cidr, 2, count.index)
+  availability_zone = element(var.azs, count.index)
 
-  tags {
+  tags = {
     Name = "default"
   }
 }
 
 resource "aws_default_route_table" "default" {
-  default_route_table_id = "${aws_vpc.default.default_route_table_id}"
+  default_route_table_id = aws_vpc.default.default_route_table_id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.default.id}"
+    gateway_id = aws_internet_gateway.default.id
   }
 
-  tags {
+  tags = {
     Name = "default"
   }
 }
 
 resource "aws_default_network_acl" "default" {
-  default_network_acl_id = "${aws_vpc.default.default_network_acl_id}"
-  subnet_ids             = ["${aws_subnet.default.*.id}"]
+  default_network_acl_id = aws_vpc.default.default_network_acl_id
+  subnet_ids             = aws_subnet.default.*.id
 
   egress {
     protocol   = -1
@@ -62,13 +62,13 @@ resource "aws_default_network_acl" "default" {
     to_port    = 0
   }
 
-  tags {
+  tags = {
     Name = "default"
   }
 }
 
 resource "aws_default_security_group" "default" {
-  vpc_id = "${aws_vpc.default.id}"
+  vpc_id = aws_vpc.default.id
 
   ingress {
     from_port   = 0
@@ -84,3 +84,4 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
