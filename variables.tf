@@ -16,9 +16,9 @@ variable "tags" {
 }
 
 variable "role" {
-  default = "etcd3"
-  type = string
-  description = "AWS role name for ETCD usage"
+  default     = "etcd3"
+  description = "Used to describe the function of a particular node (web server, database server, load balancer, etc.)."
+  type        = string
 }
 
 variable "ami" {
@@ -30,6 +30,11 @@ variable "ami" {
 variable "vpc_id" {
   type = string
   description = "AWS VPC to create all resources"
+}
+
+variable "vpc_cidr_block" {
+  type = string
+  description = "AWS VPC CIDR Block for opening security groups"
 }
 
 variable "dns" {

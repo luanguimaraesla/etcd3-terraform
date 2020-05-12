@@ -1,13 +1,8 @@
 resource "aws_security_group" "default" {
-  name        = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
-  description = "ASG-${var.role}"
-  vpc_id      = aws_vpc.default.id
-
-  tags = {
-    Name        = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
-    role        = var.role
-    environment = var.environment
-  }
+  name        = local.aws_security_group_name
+  description = "etcd security group"
+  vpc_id      = local.aws_vpc_id 
+  tags = local.tags
 
   # etcd peer + client traffic within the etcd nodes themselves
   ingress {
@@ -30,14 +25,14 @@ resource "aws_security_group" "default" {
     from_port   = 2379
     to_port     = 2380
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.default.cidr_block]
+    cidr_blocks = [local.aws_vpc_cidr_block]
   }
 
   egress {
     from_port   = 2379
     to_port     = 2380
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.default.cidr_block]
+    cidr_blocks = [local.aws_vpc_cidr_block]
   }
 }
 
