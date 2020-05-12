@@ -1,3 +1,14 @@
+variable "s3_bucket_name" {
+  type = string
+  description = "S3 bucket name to store etcd bootstrap files"
+}
+
+variable "s3_bucket_prefix" {
+  type = string
+  default = "etcd"
+  description = "S3 object prefix to store etcd bootstrap files"
+}
+
 variable "instance_type" {
   default = "m5.large"
   description = "AWS instance type"

@@ -12,4 +12,8 @@ locals {
 
   # security groups
   aws_security_group_name = "${var.role}.${var.dns["domain_name"]}"
+
+  # s3
+  aws_s3_bucket_name = var.s3_bucket_name
+  aws_s3_bucket_etcd_bootstrap_key = "${var.s3_bucket_prefix}/etcd3-bootstrap-linux-amd64"
 }

@@ -1,11 +1,6 @@
-resource "aws_s3_bucket" "files" {
-  bucket_prefix = "etcd3-files"
-  acl           = "private"
-}
-
 resource "aws_s3_bucket_object" "etcd3-bootstrap-linux-amd64" {
-  bucket       = aws_s3_bucket.files.id
-  key          = "etcd3-bootstrap-linux-amd64"
+  bucket       = local.aws_s3_bucket_name 
+  key          = local.aws_s3_bucket_etcd_bootstrap_key
   source       = "files/etcd3-bootstrap-linux-amd64"
   etag         = filemd5("files/etcd3-bootstrap-linux-amd64")
   acl          = "public-read"
