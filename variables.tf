@@ -1,6 +1,6 @@
 variable "name" {
   type = string
-  description = "This value will be prefixed to resource names and also to the R53 domain"
+  description = "This value will be appended to '.etcd' and prefixed to resource names and also to the R53 domain"
 }
 
 variable "s3_bucket_name" {
@@ -20,21 +20,19 @@ variable "instance_type" {
 }
 
 variable "azs" {
-  default = []
   type = list
   description = "List of AWS availability zones. Make sure you have more than three zones for HA setup"
+}
+
+variable "azs_ids" {
+  type = map
+  description = "Map of ids for each azs you've declared"
 }
 
 variable "tags" {
   default = {}
   type = map
   description = "AWS tags which will be present in all cloud resources"
-}
-
-variable "role" {
-  default     = "etcd3"
-  description = "Used to describe the function of a particular node (web server, database server, load balancer, etc.)."
-  type        = string
 }
 
 variable "ami" {
@@ -71,12 +69,7 @@ variable "key_name" {
   description = "AWS key pair public key to attach to instances"
 }
 
-variable "cluster_size" {
-  default = 3
-  description = "ETCD cluster size. Maximum: 5"
-}
-
 variable "ntp_host" {
-  default = "0.europe.pool.ntp.org"
+  default = "0.north-america.pool.ntp.org"
   description = "NTP host you want to use within etcd instances"
 }

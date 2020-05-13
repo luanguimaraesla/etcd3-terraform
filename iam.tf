@@ -1,10 +1,5 @@
-resource "aws_key_pair" "default" {
-  key_name   = var.role
-  public_key = var.root_key_pair_public_key
-}
-
 resource "aws_iam_role" "default" {
-  name = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
+  name = local.name
 
   assume_role_policy = <<EOF
 {
@@ -25,13 +20,13 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "default" {
-  name = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
-  role = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
+  name = local.name
+  role = aws_iam_role.default.name
   depends_on = [aws_iam_role.default]
 }
 
 resource "aws_iam_role_policy" "default" {
-  name = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
+  name = local.name
   role = aws_iam_role.default.name
   depends_on = [aws_iam_role.default]
 

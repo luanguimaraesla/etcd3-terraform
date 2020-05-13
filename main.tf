@@ -2,18 +2,17 @@
 locals {
 
   # general
-  name = var.name
+  name = "${var.name}.etcd"
   default_tags = {
-    Name = var.name
+    Name = local.name
   }
   tags = merge(local.default_tags, var.tags)
-
-  aws_azs = ["us-east-1a", "us-east-1b", "us-east-1c"] 
-  aws_azs_ids = [
 
   # vpc
   aws_vpc_id = var.vpc_id
   aws_vpc_cidr_block = var.vpc_cidr_block
+  aws_azs = var.aws_azs
+  aws_azs_ids = var.azs_ids
 
   # security groups
   aws_security_group_name = "${var.name}.${var.dns["domain_name"]}"
