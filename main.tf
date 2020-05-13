@@ -11,8 +11,8 @@ locals {
   # vpc
   aws_vpc_id = var.vpc_id
   aws_vpc_cidr_block = var.vpc_cidr_block
-  aws_azs = var.aws_azs
-  aws_azs_ids = var.azs_ids
+  aws_azs = var.azs
+  aws_subnet_ids = var.subnet_ids
 
   # security groups
   aws_security_group_name = "${local.name}.${var.dns["domain_name"]}"
@@ -33,4 +33,7 @@ locals {
   aws_ami = var.ami
   aws_key_name = var.key_name
   aws_instance_type = var.instance_type
+
+  # elb
+  aws_elb_name = "internal.${local.aws_route53_etcd_domain}"
 }

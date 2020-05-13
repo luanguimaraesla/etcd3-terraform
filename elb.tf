@@ -1,8 +1,8 @@
 resource "aws_elb" "internal" {
-  name                      = "${var.role}-internal-${var.environment}"
+  name                      = local.aws_elb_name
   security_groups           = [aws_security_group.default.id]
   cross_zone_load_balancing = true
-  subnets                   = aws_subnet.default.*.id
+  subnets                   = local.aws_subnet_ids
   internal                  = true
   idle_timeout              = 3600
 
@@ -21,16 +21,12 @@ resource "aws_elb" "internal" {
     interval            = 10
   }
 
-  tags = {
-    Name        = "${var.role}.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
-    environment = var.environment
-    role        = var.role
-  }
+  tags = local.tags
 }
 
 resource "aws_route53_record" "internal" {
-  zone_id = aws_route53_zone.default.id
-  name    = "${var.role}-elb.${var.region}.i.${var.environment}.${var.dns["domain_name"]}"
+  zone_id = local.aws_route53_zone_id
+  name    = local.aws_elb_name
   type    = "A"
 
   alias {

@@ -24,6 +24,11 @@ variable "azs" {
   description = "List of AWS availability zones. Make sure you have more than three zones for HA setup"
 }
 
+variable "subnet_ids" {
+  type = list
+  description = "List of AWS subnet IDs to setup the ELB for the ETCD cluster"
+}
+
 variable "tags" {
   default = {}
   type = map
