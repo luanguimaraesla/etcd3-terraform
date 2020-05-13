@@ -31,6 +31,6 @@ locals {
 
   # lauchconfiguration
   aws_ami = var.ami
-  aws_key_name = var.keyname
+  aws_key_name = var.key_name
   aws_instance_type = var.instance_type
 }
