@@ -1,3 +1,8 @@
+variable "name" {
+  type = string
+  description = "This value will be prefixed to resource names and also to the R53 domain"
+}
+
 variable "s3_bucket_name" {
   type = string
   description = "S3 bucket name to store etcd bootstrap files"
@@ -56,7 +61,12 @@ variable "dns" {
   }
 }
 
-variable "root_key_pair_public_key" {
+variable "route53_zone_id" {
+  type = string
+  description = "Route53 Zone ID for creating internal DNS records"
+}
+
+variable "key_name" {
   type = string
   description = "AWS key pair public key to attach to instances"
 }
