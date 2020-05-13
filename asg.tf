@@ -28,7 +28,6 @@ resource "aws_autoscaling_group" "default" {
   health_check_type         = "EC2"
   force_delete              = true
   launch_configuration      = aws_launch_configuration.default[each.value].name
-  vpc_zone_identifier       = local.aws_azs_ids[each.value]
   load_balancers            = [aws_elb.internal.name]
   wait_for_capacity_timeout = "0"
 

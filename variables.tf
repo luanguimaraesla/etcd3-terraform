@@ -24,11 +24,6 @@ variable "azs" {
   description = "List of AWS availability zones. Make sure you have more than three zones for HA setup"
 }
 
-variable "azs_ids" {
-  type = map
-  description = "Map of ids for each azs you've declared"
-}
-
 variable "tags" {
   default = {}
   type = map
