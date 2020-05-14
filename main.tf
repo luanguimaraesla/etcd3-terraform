@@ -3,10 +3,16 @@ locals {
 
   # general
   name = "${var.name}.etcd"
+  environment = var.environment
   default_tags = {
     Name = local.name
+    Environment = var.environment
+    cluster = var.name
   }
   tags = merge(local.default_tags, var.tags)
+
+  # region
+  aws_region = var.region
 
   # vpc
   aws_vpc_id = var.vpc_id

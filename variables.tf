@@ -3,6 +3,16 @@ variable "name" {
   description = "This value will be appended to '.etcd' and prefixed to resource names and also to the R53 domain"
 }
 
+variable "region" { 
+  type = string
+  description = "AWS region"
+}
+
+variable "environment" {
+  type = string
+  description = "Workload environment"
+}
+
 variable "s3_bucket_name" {
   type = string
   description = "S3 bucket name to store etcd bootstrap files"
