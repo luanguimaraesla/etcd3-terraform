@@ -3,7 +3,7 @@ resource "aws_launch_configuration" "default" {
 
   name_prefix                 = "peer-${each.value}.${local.aws_route53_etcd_domain}-"
   image_id                    = local.aws_ami
-  instance_type               = local.aws_intance_type
+  instance_type               = local.aws_instance_type
   ebs_optimized               = true
   iam_instance_profile        = aws_iam_instance_profile.default.id
   key_name                    = local.aws_key_name
