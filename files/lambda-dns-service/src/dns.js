@@ -62,13 +62,8 @@ async function getInstanceRecords(instanceIDs) {
     let instances = _.flatMap(ec2Response.Reservations, (r) => r.Instances);
 
     let names = _.flatMap(instances, (instance) => {
-        let tags = _.fromPairs(_.map(instance.Tags, (tag) => [tag.Key, tag.Value]));
-        if (_.has(tags, 'role')) {
-            let regionalName = `${tags.role}.${Region}.${DOMAIN}`
-            let azName = `${tags.role}.${instance.Placement.AvailabilityZone}.${DOMAIN}`
-            return [regionalName, azName];
-        }
-        return [];
+        let azName = `peer-${instance.Placement.AvailabilityZone}.${DOMAIN}`
+        return [azName];
     });
 
     return _.uniq(names);
@@ -78,14 +73,17 @@ async function getInstanceRecords(instanceIDs) {
 async function getRecordDestinations(name) {
     // The role is the part of the string before the region/AZ part
     // Assumption: AZ's begin with the region name (which appears to be true)
-    let regexEscapedRegion = escapeStringRegexp(Region);
-    let [, role, az] = name.match(new RegExp(`^(.+)\.(${escapeStringRegexp(Region)}[a-z]*)\.`));
+    let [, az, cluster] = name.match(
+      new RegExp(
+        `^peer-([a-z]+-[a-z}+-[0-9][a-z]*)\.(.+)`
+      )
+    );
     let region = az;
     if (!az.match(/[a-z]$/)) {
         az = null; // we might have a regional name, (eg. eu-west-1), so we don't know the AZ
     }
 
-    let filters = [{ Name: 'tag:role', Values: [role] }];
+    let filters = [{ Name: 'tag:cluster', Values: [role] }];
     if (!_.isNull(az)) {
         filters.push({ Name: 'availability-zone', Values: [az] });
     }

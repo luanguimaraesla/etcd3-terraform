@@ -6,7 +6,7 @@ data "template_file" "cloud-init" {
   vars = {
     environment      = var.environment
     role             = var.role
-    region           = var.region
+    region           = provider.aws.region
     etcd_member_unit = data.template_file.etcd_member_unit[each.value].rendered
     etcd_bootstrap_unit = data.template_file.etcd_bootstrap_unit[each.value].rendered
     ntpdate_unit       = data.template_file.ntpdate_unit.rendered
@@ -21,7 +21,7 @@ data "template_file" "etcd_member_unit" {
 
   vars = {
     peer_name             = "peer-${each.value}"
-    discovery_domain_name = "peer-${each.value}.${local.aws_route53_etcd_domain}"
+    discovery_domain_name = local.aws_route53_etcd_domain
     cluster_name          = local.name
   }
 }
@@ -32,9 +32,9 @@ data "template_file" "etcd_bootstrap_unit" {
   template = file("${path.module}/cloudinit/etcd_bootstrap_unit")
 
   vars = {
-    region                     = var.region
+    region                     = provider.aws.region
     peer_name                  = "peer-${each.value}"
-    discovery_domain_name      = "peer-${each.value}.${local.aws_route53_etcd_domain}"
+    discovery_domain_name      = local.aws_route53_etcd_domain
     etcd3_bootstrap_binary_url = "https://${local.aws_s3_bucket_name}.s3.amazonaws.com/${local.aws_s3_bucket_etcd_bootstrap_key}"
   }
 }

@@ -44,7 +44,7 @@ resource "aws_autoscaling_group" "default" {
   }
 
   tag {
-    key                 = "Cluster"
+    key                 = "cluster"
     value               = local.name
     propagate_at_launch = true
   }
