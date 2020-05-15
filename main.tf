@@ -42,5 +42,5 @@ locals {
 
   # elb
   aws_elb_record = "internal.${local.aws_route53_etcd_domain}"
-  aws_elb_name = "internal.${local.name}"
+  aws_elb_name = replace("internal.${local.name}", "/[^a-zA-Z0-9_]/", "-")
 }

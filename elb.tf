@@ -1,5 +1,5 @@
 resource "aws_elb" "internal" {
-  name                      = local.aws_elb_name
+  name                      = local.name
   security_groups           = [aws_security_group.default.id]
   cross_zone_load_balancing = true
   subnets                   = local.aws_subnet_ids
