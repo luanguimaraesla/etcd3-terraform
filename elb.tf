@@ -26,7 +26,7 @@ resource "aws_elb" "internal" {
 
 resource "aws_route53_record" "internal" {
   zone_id = local.aws_route53_zone_id
-  name    = local.aws_elb_name
+  name    = local.aws_elb_record
   type    = "A"
 
   alias {

@@ -41,5 +41,6 @@ locals {
   aws_instance_type = var.instance_type
 
   # elb
-  aws_elb_name = "internal.${local.aws_route53_etcd_domain}"
+  aws_elb_record = "internal.${local.aws_route53_etcd_domain}"
+  aws_elb_name = "internal.${local.name}"
 }
