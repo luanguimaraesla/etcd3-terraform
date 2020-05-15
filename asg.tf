@@ -66,7 +66,7 @@ resource "aws_ebs_volume" "ssd" {
   for_each = toset(local.aws_azs)
 
   type              = "gp2"
-  availability_zone = local.aws_azs[each.value]
+  availability_zone = each.value
   size              = 100
   tags = local.tags
 }
