@@ -46,7 +46,7 @@ variable "tags" {
 }
 
 variable "ami" {
-  default = "ami-1f62c270"
+  default = "ami-068663a3c619dd892"
   type = string
   description = "AWS AMI ID to use"
 }
