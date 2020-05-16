@@ -75,10 +75,11 @@ resource "aws_lambda_function" "cloudwatch-dns-service" {
   depends_on = [
     data.archive_file.lambda-dns-service,
     aws_iam_role_policy_attachment.lambda-cloudwatch-dns-service-xray,
+    aws_iam_role.lambda-cloudwatch-dns-service
   ]
 
   tracing_config {
-  mode = "Active"
+    mode = "Active"
   }
 
   environment {
