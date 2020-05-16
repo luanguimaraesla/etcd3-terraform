@@ -69,7 +69,7 @@ resource "aws_lambda_function" "cloudwatch-dns-service" {
   function_name    = local.aws_lambda_name
   role             = aws_iam_role.lambda-cloudwatch-dns-service.arn
   handler          = "bundle.handler"
-  runtime          = "nodejs6.10"
+  runtime          = "nodejs8.10"
   timeout          = 10
 
   depends_on = [

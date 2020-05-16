@@ -33,7 +33,8 @@ locals {
   aws_route53_zone_id = var.route53_zone_id
 
   # lambda
-  aws_lambda_name = "${local.name}.${var.dns["domain_name"]}"
+  aws_lambda_name = "${lower(replace("${local.name}.${var.dns["domain_name"]}" ,"/\\W|_|\\s/","-"))}"
+  
 
   # lauchconfiguration
   aws_ami = var.ami
