@@ -68,9 +68,7 @@ resource "aws_ebs_volume" "ssd" {
   type              = "gp2"
   availability_zone = each.value
   size              = 100
-  tags = merge(local.tags, {
-    "Name": "vol-peer-${each.value}.${local.aws_route53_etcd_domain}"
-  }
+  tags = merge(local.tags, {"Name": "vol-peer-${each.value}.${local.aws_route53_etcd_domain}"})
 }
 
 
