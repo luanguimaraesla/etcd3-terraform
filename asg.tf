@@ -19,7 +19,7 @@ resource "aws_launch_configuration" "default" {
 resource "aws_autoscaling_group" "default" {
   for_each = toset(local.aws_azs)
 
-  availability_zones        = [each.value]
+  vpc_zone_identifier       = [local.aws_azs_subnet_ids[each.value]]
   name                      = "peer-${each.value}.${local.aws_route53_etcd_domain}"
   max_size                  = 1
   min_size                  = 1

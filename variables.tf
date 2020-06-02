@@ -29,14 +29,9 @@ variable "instance_type" {
   description = "AWS instance type"
 }
 
-variable "azs" {
-  type = list
-  description = "List of AWS availability zones. Make sure you have more than three zones for HA setup"
-}
-
-variable "subnet_ids" {
-  type = list
-  description = "List of AWS subnet IDs to setup the ELB for the ETCD cluster"
+variable "azs_subnet_ids" {
+  type = map(string) 
+  description = "Map of AWS subnet names and respective IDs to setup the ELB and ASGs for the ETCD cluster"
 }
 
 variable "tags" {

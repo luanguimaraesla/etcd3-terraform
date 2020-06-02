@@ -17,8 +17,9 @@ locals {
   # vpc
   aws_vpc_id = var.vpc_id
   aws_vpc_cidr_block = var.vpc_cidr_block
-  aws_azs = var.azs
-  aws_subnet_ids = var.subnet_ids
+  aws_azs_subnet_ids = var.azs_subnet_ids 
+  aws_azs = [for name, id in local.aws_azs_subnet_ids: name]
+  aws_subnet_ids = [for name, id in local.aws_azs_subnet_ids: id]
 
   # security groups
   aws_security_group_name = "${local.name}.${var.dns["domain_name"]}"
