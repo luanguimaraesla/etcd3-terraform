@@ -1,9 +1,22 @@
 #! /bin/bash
 
-echo "${etcd_bootstrap_unit}" > /etc/systemd/system/etcd-bootstrap.service
-echo "${etcd_member_unit}" > /etc/systemd/system/etcd-member.service
-echo "${ntpdate_unit}" > /etc/systemd/system/ntpdate.service
-echo "${ntpdate_timer_unit}" > /etc/systemd/system/ntpdate.timer
+
+cat << EOT > /etc/systemd/system/etcd-bootstrap.service
+${etcd_bootstrap_unit} 
+EOT
+
+cat << EOT > /etc/systemd/system/etcd-member.service
+${etcd_member_unit}
+EOT
+
+cat << EOT > /etc/systemd/system/ntpdate.service
+${ntpdate_unit}
+EOT
+
+cat << EOT > /etc/systemd/system/ntpdate.timer
+${ntpdate_timer_unit}
+EOT
+
 
 systemctl enable etcd-bootstrap.service
 systemctl enable etcd-member.service
