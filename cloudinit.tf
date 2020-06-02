@@ -1,7 +1,7 @@
 data "template_file" "cloud-init" {
   for_each = toset(local.aws_azs)
 
-  template = file("${path.module}/cloudinit/userdata-template.json")
+  template = file("${path.module}/cloudinit/userdata-template.sh")
 
   vars = {
     environment      = local.environment

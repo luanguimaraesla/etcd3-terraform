@@ -1,3 +1,5 @@
+#! /bin/bash
+
 echo "${etcd_bootstrap_unit}" > /etc/systemd/system/etcd-bootstrap.service
 echo "${etcd_member_unit}" > /etc/systemd/system/etcd-member.service
 echo "${ntpdate_unit}" > /etc/systemd/system/ntpdate.service
