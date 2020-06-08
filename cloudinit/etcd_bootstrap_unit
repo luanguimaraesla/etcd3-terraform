@@ -10,7 +10,6 @@ ExecStartPre=/usr/bin/chmod +x /tmp/etcd3-bootstrap
 RemainAfterExit=true
 ExecStart=/tmp/etcd3-bootstrap \
     -ebs-volume-name=${peer_ebs_volume_name} \
-    -block-device=/dev/xvdf \
     -aws-region=${region} \
     -mount-point=/var/lib/etcd
 
