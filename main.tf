@@ -32,7 +32,7 @@ locals {
 
   # route53
   aws_route53_etcd_domain = "${local.name}.${var.dns["domain_name"]}"
-  aws_route53_etcd_srv_domain = "_etcd._tcp.${local.aws_route53_etcd_domain}"
+  aws_route53_etcd_srv_domain = "_etcd-server._tcp.${local.aws_route53_etcd_domain}"
   aws_route53_zone_id = var.route53_zone_id
 
   # lambda
