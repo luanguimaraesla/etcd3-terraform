@@ -16,5 +16,5 @@ resource "aws_route53_record" "peers" {
   name    = "peer-${each.value}.${local.aws_route53_etcd_domain}"
   type    = "A"
   ttl     = "1"
-  records = ["172.19.1.3"]
+  records = ["127.0.0.1"]
 }

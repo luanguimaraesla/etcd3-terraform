@@ -34,5 +34,13 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = [local.aws_vpc_cidr_block]
   }
+
+  # ssh
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
