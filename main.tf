@@ -1,5 +1,7 @@
 
 locals {
+  # etcd
+  etcd_version = var.etcd_version
 
   # general
   name = "${var.name}.etcd"

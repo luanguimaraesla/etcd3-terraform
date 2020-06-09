@@ -1,6 +1,17 @@
 #! /bin/bash
 
 
+## Install ETCD
+curl -L -o /tmp/etcd-v${etcd_version}-linux-amd64.tar.gz https://github.com/etcd-io/etcd/releases/download/v${etcd_version}/etcd-v${etcd_version}-linux-amd64.tar.gz
+
+tar xvf /tmp/etcd-v${etcd_version}-linux-amd64.tar.gz -C /tmp
+
+mv /tmp/etcd-v${etcd_version}-linux-amd64/{etcd,etcdctl} /usr/local/bin
+
+mkdir -p /var/lib/etcd/
+mkdir -p /etc/etcd
+
+
 cat << EOT > /etc/systemd/system/etcd-bootstrap.service
 ${etcd_bootstrap_unit} 
 EOT

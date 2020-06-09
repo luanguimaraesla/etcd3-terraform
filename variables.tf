@@ -1,3 +1,9 @@
+variable "etcd_version" {
+  type = string
+  default = "3.3.13"
+  description = "ETCD release version"
+}
+
 variable "name" {
   type = string
   description = "This value will be appended to '.etcd' and prefixed to resource names and also to the R53 domain"

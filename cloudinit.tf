@@ -4,6 +4,7 @@ data "template_file" "cloud-init" {
   template = file("${path.module}/cloudinit/userdata-template.sh")
 
   vars = {
+    etcd_version     = local.etcd_version
     environment      = local.environment
     role             = local.name
     region           = local.aws_region
