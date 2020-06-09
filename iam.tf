@@ -36,7 +36,7 @@ resource "aws_iam_role_policy" "default" {
 
   policy = <<EOF
 {
-  "Version": "2008-10-17",
+  "Version": "2017-11-27",
   "Statement": [
     {
       "Effect": "Allow",
@@ -56,10 +56,18 @@ resource "aws_iam_role_policy" "default" {
         "s3:GetObject"
       ],
       "Resource": "*"
+    },
+    {   
+      "Effect":"Allow",
+      "Action": [
+        "route53:ChangeResourceRecordSets"
+      ],  
+      "Resource": [
+        "arn:aws:route53:::hostedzone/${local.aws_route53_zone_id}"
+      ]
     }
   ]
 }
 EOF
 
 }
-
