@@ -11,7 +11,9 @@ RemainAfterExit=true
 ExecStart=/tmp/etcd3-bootstrap \
     -ebs-volume-name=${peer_ebs_volume_name} \
     -aws-region=${region} \
-    -mount-point=/var/lib/etcd
+    -mount-point=/var/lib/etcd \
+    -zone-id=${hosted_zone_id} \
+    -domain=${peer_domain}
 
 [Install]
 WantedBy=etcd-member.service
