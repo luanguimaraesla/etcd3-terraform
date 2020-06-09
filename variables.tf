@@ -41,7 +41,7 @@ variable "tags" {
 }
 
 variable "ami" {
-  default = "ami-068663a3c619dd892"
+  default = "099720109477/ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20200528"
   type = string
   description = "AWS AMI ID to use"
 }
