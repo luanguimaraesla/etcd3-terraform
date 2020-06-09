@@ -22,7 +22,7 @@ data "template_file" "etcd_member_unit" {
 
   vars = {
     peer_name             = "peer-${each.value}"
-    discovery_domain_name = local.aws_route53_etcd_srv_domain
+    discovery_domain_name = local.aws_route53_etcd_domain
     cluster_name          = local.name
   }
 }
