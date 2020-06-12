@@ -5,9 +5,6 @@ data "template_file" "cloud-init" {
 
   vars = {
     etcd_version     = local.etcd_version
-    environment      = local.environment
-    role             = local.name
-    region           = local.aws_region
     etcd_member_unit = data.template_file.etcd_member_unit[each.value].rendered
     etcd_bootstrap_unit = data.template_file.etcd_bootstrap_unit[each.value].rendered
   }
