@@ -10,8 +10,6 @@ data "template_file" "cloud-init" {
     region           = local.aws_region
     etcd_member_unit = data.template_file.etcd_member_unit[each.value].rendered
     etcd_bootstrap_unit = data.template_file.etcd_bootstrap_unit[each.value].rendered
-    ntpdate_unit       = data.template_file.ntpdate_unit.rendered
-    ntpdate_timer_unit = data.template_file.ntpdate_timer_unit.rendered
   }
 }
 
@@ -40,16 +38,3 @@ data "template_file" "etcd_bootstrap_unit" {
     etcd3_bootstrap_binary_url = "https://${local.aws_s3_bucket_name}.s3.amazonaws.com/${local.aws_s3_bucket_etcd_bootstrap_key}"
   }
 }
-
-data "template_file" "ntpdate_unit" {
-  template = file("${path.module}/cloudinit/ntpdate_unit")
-
-  vars = {
-    ntp_host = var.ntp_host
-  }
-}
-
-data "template_file" "ntpdate_timer_unit" {
-  template = file("${path.module}/cloudinit/ntpdate_timer_unit")
-}
-

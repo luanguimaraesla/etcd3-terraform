@@ -9,6 +9,7 @@ resource "aws_launch_configuration" "default" {
   key_name                    = local.aws_key_name
   enable_monitoring           = false
   associate_public_ip_address = true
+  security_groups             = [aws_security_group.etcd_member.id]
   user_data                   = data.template_file.cloud-init[each.value].rendered
 
   lifecycle {
@@ -70,6 +71,4 @@ resource "aws_ebs_volume" "ssd" {
   size              = 100
   tags = merge(local.tags, {"Name": "vol-peer-${each.value}.${local.aws_route53_etcd_domain}"})
 }
-
-
 
