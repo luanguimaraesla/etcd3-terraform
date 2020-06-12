@@ -50,24 +50,8 @@ resource "aws_security_group" "etcd_member" {
     self      = true
   }
 
-  # etcd client traffic from ELB
-  egress {
-    from_port = 2379
-    to_port   = 2380
-    protocol  = "tcp"
-    self      = true
-  }
-
   # etcd client traffic from the VPC
   ingress {
-    from_port   = 2379
-    to_port     = 2380
-    protocol    = "tcp"
-    cidr_blocks = [local.aws_vpc_cidr_block]
-  }
-
-  # etcd client traffic from the VPC
-  egress {
     from_port   = 2379
     to_port     = 2380
     protocol    = "tcp"
@@ -80,5 +64,13 @@ resource "aws_security_group" "etcd_member" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # etcd-member client traffic from the VPC
+  egress {
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "all"
+    cidr_blocks = [local.aws_vpc_cidr_block]
   }
 }
