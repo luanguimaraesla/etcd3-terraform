@@ -1,5 +1,5 @@
 resource "aws_security_group" "default" {
-  name        = local.aws_security_group_name
+  name        = "elb.${local.aws_security_group_name}"
   description = "etcd security group"
   vpc_id      = local.aws_vpc_id 
   tags = local.tags
@@ -37,7 +37,7 @@ resource "aws_security_group" "default" {
 }
 
 resource "aws_security_group" "etcd_member" {
-  name        = local.aws_security_group_name
+  name        = "etcd-member.${local.aws_security_group_name}"
   description = "etcd security group"
   vpc_id      = local.aws_vpc_id 
   tags = local.tags

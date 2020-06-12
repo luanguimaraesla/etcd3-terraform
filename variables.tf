@@ -1,22 +1,12 @@
-variable "etcd_version" {
-  type = string
-  default = "3.3.13"
-  description = "ETCD release version"
-}
-
 variable "name" {
   type = string
   description = "This value will be appended to '.etcd' and prefixed to resource names and also to the R53 domain"
 }
 
-variable "region" { 
+variable "etcd_version" {
   type = string
-  description = "AWS region"
-}
-
-variable "environment" {
-  type = string
-  description = "Workload environment"
+  default = "3.3.13"
+  description = "ETCD release version"
 }
 
 variable "s3_bucket_name" {
@@ -66,21 +56,12 @@ variable "dns" {
   type = map(string)
 
   default = {
+    # zone_id is required
     domain_name = "cilium.internal"
   }
-}
-
-variable "route53_zone_id" {
-  type = string
-  description = "Route53 Zone ID for creating internal DNS records"
 }
 
 variable "key_name" {
   type = string
   description = "AWS key pair public key to attach to instances"
-}
-
-variable "ntp_host" {
-  default = "0.north-america.pool.ntp.org"
-  description = "NTP host you want to use within etcd instances"
 }

@@ -1,3 +1,4 @@
+data "aws_region" "region" {} 
 
 locals {
   # etcd
@@ -5,16 +6,14 @@ locals {
 
   # general
   name = "${var.name}.etcd"
-  environment = var.environment
   default_tags = {
     Name = local.name
-    Environment = var.environment
     cluster = var.name
   }
   tags = merge(local.default_tags, var.tags)
 
   # region
-  aws_region = var.region
+  aws_region = data.aws_region.region.name 
 
   # vpc
   aws_vpc_id = var.vpc_id
@@ -31,13 +30,9 @@ locals {
   aws_s3_bucket_etcd_bootstrap_key = "${var.s3_bucket_prefix}/etcd3-bootstrap-linux-amd64"
 
   # route53
+  aws_route53_zone_id = var.dns["zone_id"]
   aws_route53_etcd_domain = "${local.name}.${var.dns["domain_name"]}"
   aws_route53_etcd_srv_domain = "_etcd-server._tcp.${local.aws_route53_etcd_domain}"
-  aws_route53_zone_id = var.route53_zone_id
-
-  # lambda
-  aws_lambda_name = "${lower(replace("${local.name}.${var.dns["domain_name"]}" ,"/\\W|_|\\s/","-"))}"
-  
 
   # lauchconfiguration
   aws_ami = var.ami
