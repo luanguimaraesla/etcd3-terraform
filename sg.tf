@@ -69,8 +69,8 @@ resource "aws_security_group" "etcd_member" {
   # etcd-member client traffic from the VPC
   egress {
     from_port   = 0
-    to_port     = 65535
-    protocol    = "all"
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = [local.aws_vpc_cidr_block]
   }
 }
